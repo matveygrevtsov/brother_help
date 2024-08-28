@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
+import { AutoSlider } from "./components/AutoSlider/AutoSlider";
 
 type TCoordinates = {
   latitude: number;
@@ -59,6 +60,8 @@ export const App = (): JSX.Element => {
           ))}
         </Map>
       </YMaps>
+
+      <AutoSlider />
     </div>
   );
 };
