@@ -27,20 +27,44 @@ export const AutoSlider = () => {
     }
   };
 
-  return (
-    <Swiper ref={ref} className={styles.root} loop={true}>
-      {images.map((image, index) => (
-        <SwiperSlide key={index}>
-          <img src={image} className={styles.image} />
-        </SwiperSlide>
-      ))}
+  const handlePaginationClick = (index: number) => {
+    const root = ref.current?.swiper;
+    if (!root) return;
+    root.slideTo(index);
+  };
 
-      <div className={styles.buttonPrev} onClick={handleArrowClick("prev")}>
-        <IconArrowPrev />
+  return (
+    <div>
+      <Swiper ref={ref} className={styles.root} loop={true}>
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <img src={image} className={styles.image} />
+          </SwiperSlide>
+        ))}
+
+        <div className={styles.buttonPrev} onClick={handleArrowClick("prev")}>
+          <IconArrowPrev />
+        </div>
+        <div className={styles.buttonNext} onClick={handleArrowClick("next")}>
+          <IconArrowPrev />
+        </div>
+      </Swiper>
+
+      {/* Кастомная пагинация */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+        }}
+      >
+        {images.map((_, index) => (
+          <button key={index} onClick={() => handlePaginationClick(index)}>
+            {index}
+          </button>
+        ))}
       </div>
-      <div className={styles.buttonNext} onClick={handleArrowClick("next")}>
-        <IconArrowPrev />
-      </div>
-    </Swiper>
+    </div>
   );
 };
